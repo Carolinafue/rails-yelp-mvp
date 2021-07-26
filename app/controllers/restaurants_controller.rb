@@ -1,5 +1,6 @@
 class RestaurantsController < ApplicationController
   before_action :set_restaurant, only: [:show, :edit, :update, :destroy, :chef]
+
   def top
     @restaurants = Restaurant.where(stars: 5)
   end
@@ -9,7 +10,6 @@ class RestaurantsController < ApplicationController
   end
 
   def show
-    @restaurant = Restaurant.find(params[:id])
   end
 
   def def new
@@ -29,8 +29,10 @@ class RestaurantsController < ApplicationController
     @restaurants = Restaurant.where(raiting 5)
   end
 
-  def edit
+  def chef
+  end
 
+  def edit
   end
 
   def update
@@ -46,8 +48,13 @@ class RestaurantsController < ApplicationController
     redirect_to restaurants_url, notice:
   end
 
+  Private
+
   def set_restaurant
     @restaurant = Restaurant.find(params[:id])
   end
 
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :rating)
+  end
 end
